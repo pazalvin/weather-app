@@ -1,14 +1,39 @@
 import React from 'react';
+import { Result,Button} from 'antd';
 import { useWeatherData } from '../hooks/weather'
 import { Segmented,Spin } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 
 function WeatherCard(props) {
-  
-  const { data, error, isLoading, refetch} = useWeatherData({ lat: props.lat, long: props.long, units:  props.units });
+  const navigate = useNavigate();
+  const { data, error, isLoading } = useWeatherData({ lat: props.lat, long: props.long, units:  props.units });
   const renderIcon = (code) => {
     return `http://openweathermap.org/img/wn/${code}@2x.png`
   };
+
+  const goToRoot = () => {
+    navigate('/');
+  };
+
+  if(error){
+    return (
+      <>
+        <div class="min-h-screen flex items-center justify-center">
+        <Result
+          status="error"
+          title="There are some problems with your operation."
+          extra={
+            <Button type="primary" key="console" onClick={goToRoot}>
+               Search Again
+            </Button>
+          }
+        />
+        </div>
+      </>
+    )
+  }
+
 
   return (
     <>
@@ -48,16 +73,16 @@ function WeatherCard(props) {
           <Spin spinning={isLoading} />
          }
 
-        <div class="flex items-center justify-around gap-[20px] mt-[40px] w-[100%] flex-wrap">
+        <div class="flex items-center justify-evenly gap-[20px] mt-[40px] w-[100%] flex-wrap">
 
-        <div class='text-center'>
+        <div class='text-center'> 
           <p>{data?.main.feels_like ? data.main.feels_like : ""} { props.units === 'metric' ? '°' : '°F' }</p>
           <p class="font-bold">Feels like</p>
         </div>
 
         <div  class='text-center'>
           <p>{data?.main.humidity ? data.main.humidity : ""} %</p>
-          <p  class="font-bold">Humidity</p>
+          <p class="font-bold">Humidity</p>
         </div>
 
         <div  class='text-center'>
