@@ -1,5 +1,4 @@
 import React from 'react';
-import { Result } from 'antd';
 import { useWeatherForeCast } from '../hooks/weather';
 import dayjs from 'dayjs';
 
