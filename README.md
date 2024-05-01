@@ -44,6 +44,6 @@ Your app is ready to be deployed!
 ### Project Structure
 
 - `src/components`: Directory for web components.
-- `src/hooks`: Directory for hooks/API services.
+- `src/hooks`: Directory for customs hooks and API services.
 - `src/pages`: Directory for the pages of the app.
 - `src/App.js`: Routes of the app.
